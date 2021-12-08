@@ -15,7 +15,6 @@ namespace Puzzle
         Image img;
         Image[] imgarray;
         List<int> idxarray = new List<int>();
-        int activePart;
         public Puzzle()
         {
             InitializeComponent();
@@ -28,6 +27,7 @@ namespace Puzzle
 
         private void button1_Click(object sender, EventArgs e)
         {
+            clear_pBox();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 img = Image.FromFile(openFileDialog1.FileName);
@@ -66,7 +66,6 @@ namespace Puzzle
             while (idxarray.Contains(idx) && idxarray.Count < 9);
             idxarray.Add(idx);
             pictureBox11.Image = imgarray[idx];
-            activePart = idx;
         }
 
         private void picturebox_Click(object sender, EventArgs e)
@@ -85,10 +84,29 @@ namespace Puzzle
                     pictureBox11.Image = null;
                     if(pictureBox1.Image == imgarray[0] && pictureBox2.Image == imgarray[1] && pictureBox3.Image == imgarray[2] && pictureBox4.Image == imgarray[3] && pictureBox5.Image == imgarray[4] && pictureBox6.Image == imgarray[5] && pictureBox7.Image == imgarray[6] && pictureBox8.Image == imgarray[7] && pictureBox9.Image == imgarray[8])
                     {
-                        MessageBox.Show("Brawo! Udało ci się poprawnie ułożyć puzzle!");
+                        MessageBox.Show("Brawo! Udało Ci się poprawnie ułożyć puzzle!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Niestety, nie udało Ci się poprawnie ułożyć puzzli. Spróbuj ponownie!");
+                        clear_pBox();
+                        idxarray.Clear();
+                        Losuj();
                     }
                 }
             }
+        }
+        private void clear_pBox()
+        {
+            pictureBox1.Image = null;
+            pictureBox2.Image = null;
+            pictureBox3.Image = null;
+            pictureBox4.Image = null;
+            pictureBox5.Image = null;
+            pictureBox6.Image = null;
+            pictureBox7.Image = null;
+            pictureBox8.Image = null;
+            pictureBox9.Image = null;
         }
         private void Puzzle_Load(object sender, EventArgs e)
         {
